@@ -1,0 +1,7 @@
+<h1>Show Bear</h1>
+
+<p>
+  Is <%= @bear.name %> hibernating? <strong><%= @bear.hibernating %></strong>
+  <br>
+  Is <%= @bear.name %> a grizzly? <b><%= is_grizzly(@bear) %></b>
+</p>

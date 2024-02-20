@@ -1,0 +1,7 @@
+<h1>All the Lions!</h1>
+
+<ul>
+  <%= for lion <- @lions do %>
+    <li><%= lion.name %> - <%= lion.type %></li>
+  <% end %>
+</ul>

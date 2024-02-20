@@ -1,0 +1,5 @@
+<h1>Show Lion</h1>
+
+<p>
+  Is <%= @lion.name %> a white lion? <b><%= is_white(@lion) %></b>
+</p>
