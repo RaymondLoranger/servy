@@ -406,6 +406,25 @@ defmodule Servy.MyHandlerTest do
         \r
         [{"type":"King","name":"Mufasa","id":1},{"type":"Cub","name":"Simba 🦁","id":2},{"type":"White","name":"Kimba","id":3},{"type":"Sheepish","name":"Lambert","id":4},{"type":"Cub","name":"Elsa","id":5}]
         """
+      ],
+      [
+        request: """
+        POST /api/bears HTTP/1.1\r
+        Host: example.com\r
+        User-Agent: ExampleBrowser/1.0\r
+        Accept: */*\r
+        Content-Type: application/json\r
+        Content-Length: 21\r
+        \r
+        {"name": "Breezly", "type": "Polar"}
+        """,
+        response: """
+        HTTP/1.1 201 Created\r
+        Content-Type: text/html; charset=utf-8\r
+        Content-Length: 35\r
+        \r
+        Created a Polar bear named Breezly!
+        """
       ]
     ]
 

@@ -11,4 +11,9 @@ defmodule Servy.Api.BearController do
   def index(%Conv{} = conv) do
     %Conv{conv | status: 200, resp_content_type: @app_json, resp_body: @json}
   end
+
+  @spec create(Conv.t(), map) :: Conv.t()
+  def create(%Conv{} = conv, %{"name" => name, "type" => type} = _params) do
+    %{conv | status: 201, resp_body: "Created a #{type} bear named #{name}!"}
+  end
 end

@@ -2,6 +2,7 @@ defmodule Servy.Parser do
   alias Servy.Conv
 
   @url_encoded "application/x-www-form-urlencoded"
+  @json "application/json"
 
   @doc ~S'''
   Parses a request into a conv struct.
@@ -57,6 +58,9 @@ defmodule Servy.Parser do
   @spec parse_params(String.t(), String.t()) :: %{String.t() => String.t()}
   defp parse_params(@url_encoded = _content_type, params_string),
     do: params_string |> String.trim() |> URI.decode_query()
+
+  defp parse_params(@json = _content_type, params_string),
+    do: Poison.Parser.parse!(params_string)
 
   defp parse_params(_content_type, _params_string), do: %{}
 end

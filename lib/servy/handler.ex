@@ -57,6 +57,9 @@ defmodule Servy.Handler do
   def route(%Conv{method: "GET", path: "/api/bears"} = conv),
     do: ApiBearController.index(conv)
 
+  def route(%Conv{method: "POST", path: "/api/bears"} = conv),
+    do: ApiBearController.create(conv, conv.params)
+
   def route(%Conv{method: "GET", path: "/api/lions"} = conv),
     do: ApiLionController.index(conv)
 
