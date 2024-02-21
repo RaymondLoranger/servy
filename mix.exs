@@ -5,7 +5,7 @@ defmodule Servy.MixProject do
     [
       app: :servy,
       description: "A humble HTTP server",
-      version: "0.1.4",
+      version: "0.1.5",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -26,6 +26,7 @@ defmodule Servy.MixProject do
   defp deps do
     [
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
+      {:earmark, "~> 1.4"},
       {:ex_doc, "~> 0.14", only: :dev, runtime: false},
       {:io_ansi_plus, "~> 0.1"},
       {:persist_config, "~> 0.1"},

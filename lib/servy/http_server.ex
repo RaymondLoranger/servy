@@ -65,7 +65,7 @@ defmodule Servy.HttpServer do
     IO.ANSI.Plus.puts([:tenn, "#{self() |> inspect()}: working on request..."])
 
     client_socket
-    |> read_request
+    |> read_request()
     |> Handler.handle()
     |> write_response(client_socket)
   end

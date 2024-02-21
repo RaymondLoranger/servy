@@ -87,8 +87,20 @@ defmodule Servy.Handler do
   def route(%Conv{method: "GET", path: "/about"} = conv),
     do: @about_path |> File.read() |> handle_file(conv)
 
-  def route(%Conv{method: "GET", path: "/pages/" <> file} = conv) do
-    @pages_path |> Path.join("#{file}.html") |> File.read() |> handle_file(conv)
+  def route(%Conv{method: "GET", path: "/pages/" <> name} = conv) do
+    case @pages_path |> Path.join("#{name}.md") |> File.read() do
+      {:ok, content} ->
+        %Conv{conv | status: 200, resp_body: Earmark.as_html!(content)}
+
+      {:error, _reason} ->
+        case @pages_path |> Path.join("#{name}.html") |> File.read() do
+          {:ok, content} ->
+            %Conv{conv | status: 200, resp_body: content}
+
+          {:error, _reason} ->
+            %Conv{conv | status: 404, resp_body: "File not found!"}
+        end
+    end
   end
 
   # name=Baloo&type=Brown
@@ -129,9 +141,6 @@ defmodule Servy.Handler do
   defp handle_file({:ok, content}, conv),
     do: %Conv{conv | status: 200, resp_body: content}
 
-  defp handle_file({:error, :enoent}, conv),
+  defp handle_file({:error, _reason}, conv),
     do: %Conv{conv | status: 404, resp_body: "File not found!"}
-
-  defp handle_file({:error, reason}, conv),
-    do: %Conv{conv | status: 500, resp_body: "File error: #{reason}"}
 end

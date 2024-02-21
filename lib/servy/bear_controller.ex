@@ -1,6 +1,8 @@
 defmodule Servy.BearController do
   alias Servy.{Bear, BearView, Conv, Wildthings}
 
+  @vowels [?a, ?e, ?i, ?o, ?u, ?A, ?E, ?I, ?O, ?U]
+
   @spec index(Conv.t()) :: Conv.t()
   def index(%Conv{} = conv) do
     bears = Wildthings.list_bears() |> Enum.sort(Bear)
@@ -14,7 +16,15 @@ defmodule Servy.BearController do
   end
 
   @spec create(Conv.t(), map) :: Conv.t()
-  def create(%Conv{} = conv, %{"name" => name, "type" => type} = _params) do
+  def create(
+        %Conv{} = conv,
+        %{"name" => name, "type" => <<first::8, _etc::binary>> = type} = _params
+      )
+      when first in @vowels do
+    %{conv | status: 201, resp_body: "Created an #{type} bear named #{name}!"}
+  end
+
+  def create(%Conv{} = conv, %{"name" => name, "type" => type}) do
     %{conv | status: 201, resp_body: "Created a #{type} bear named #{name}!"}
   end
 

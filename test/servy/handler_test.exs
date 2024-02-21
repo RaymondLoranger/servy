@@ -60,12 +60,14 @@ defmodule Servy.MyHandlerTest do
         response: """
         HTTP/1.1 200 OK\r
         Content-Type: text/html; charset=utf-8\r
-        Content-Length: 413\r
+        Content-Length: 505\r
         \r
         🎉🎉🎉🎉🎉
-        <h1>All the Bears! (10)</h1>
+        <h1>All the Bears! (13)</h1>
 
         <ul>
+        \s\s
+            <li>Baloo - Sloth</li>
         \s\s
             <li>Brutus - Grizzly</li>
         \s\s
@@ -86,6 +88,10 @@ defmodule Servy.MyHandlerTest do
             <li>Snow - Polar</li>
         \s\s
             <li>Teddy 🧸 - Brown</li>
+        \s\s
+            <li>Winnie - Black</li>
+        \s\s
+            <li>Yogi - Grizzly</li>
         \s\s
         </ul>
 
@@ -289,14 +295,33 @@ defmodule Servy.MyHandlerTest do
         Content-Type: application/x-www-form-urlencoded\r
         Content-Length: 21\r
         \r
-        name=Baloo&type=Brown
+        name=Baloo&type=Famous
         """,
         response: """
         HTTP/1.1 201 Created\r
         Content-Type: text/html; charset=utf-8\r
-        Content-Length: 33\r
+        Content-Length: 34\r
         \r
-        Created a Brown bear named Baloo!
+        Created a Famous bear named Baloo!
+        """
+      ],
+      [
+        request: """
+        POST /bears HTTP/1.1\r
+        Host: example.com\r
+        User-Agent: ExampleBrowser/1.0\r
+        Accept: */*\r
+        Content-Type: application/x-www-form-urlencoded\r
+        Content-Length: 21\r
+        \r
+        name=Baloo&type=Iconic
+        """,
+        response: """
+        HTTP/1.1 201 Created\r
+        Content-Type: text/html; charset=utf-8\r
+        Content-Length: 35\r
+        \r
+        Created an Iconic bear named Baloo!
         """
       ],
       [
@@ -386,9 +411,9 @@ defmodule Servy.MyHandlerTest do
         response: """
         HTTP/1.1 200 OK\r
         Content-Type: application/json; charset=utf-8\r
-        Content-Length: 615\r
+        Content-Length: 797\r
         \r
-        [{"hibernating":true,"type":"Brown","name":"Teddy 🧸","id":1},{"hibernating":false,"type":"Black","name":"Smokey 🐻","id":2},{"hibernating":false,"type":"Brown","name":"Paddington","id":3},{"hibernating":true,"type":"Grizzly","name":"Scarface","id":4},{"hibernating":false,"type":"Polar","name":"Snow","id":5},{"hibernating":false,"type":"Grizzly","name":"Brutus","id":6},{"hibernating":true,"type":"Black","name":"Rosie","id":7},{"hibernating":false,"type":"Panda","name":"Roscoe","id":8},{"hibernating":true,"type":"Polar","name":"Iceman","id":9},{"hibernating":false,"type":"Grizzly","name":"Kenai","id":10}]
+        [{"hibernating":true,"type":"Brown","name":"Teddy 🧸","id":1},{"hibernating":false,"type":"Black","name":"Smokey 🐻","id":2},{"hibernating":false,"type":"Brown","name":"Paddington","id":3},{"hibernating":true,"type":"Grizzly","name":"Scarface","id":4},{"hibernating":false,"type":"Polar","name":"Snow","id":5},{"hibernating":false,"type":"Grizzly","name":"Brutus","id":6},{"hibernating":true,"type":"Black","name":"Rosie","id":7},{"hibernating":false,"type":"Panda","name":"Roscoe","id":8},{"hibernating":true,"type":"Polar","name":"Iceman","id":9},{"hibernating":false,"type":"Grizzly","name":"Kenai","id":10},{"hibernating":false,"type":"Sloth","name":"Baloo","id":11},{"hibernating":false,"type":"Grizzly","name":"Yogi","id":12},{"hibernating":false,"type":"Black","name":"Winnie","id":13}]
         """
       ],
       [
@@ -424,6 +449,25 @@ defmodule Servy.MyHandlerTest do
         Content-Length: 35\r
         \r
         Created a Polar bear named Breezly!
+        """
+      ],
+      [
+        request: """
+        POST /api/bears HTTP/1.1\r
+        Host: example.com\r
+        User-Agent: ExampleBrowser/1.0\r
+        Accept: */*\r
+        Content-Type: application/json\r
+        Content-Length: 21\r
+        \r
+        {"name": "Breezly", "type": "Arctic"}
+        """,
+        response: """
+        HTTP/1.1 201 Created\r
+        Content-Type: text/html; charset=utf-8\r
+        Content-Length: 37\r
+        \r
+        Created an Arctic bear named Breezly!
         """
       ]
     ]
