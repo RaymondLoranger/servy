@@ -9,7 +9,7 @@ defmodule Servy.PledgeServer do
 
   ## Client interface
 
-  def start_link(:ok) do
+  def start_link(:ok, :and, :what, :not) do
     IO.ANSI.Plus.puts([:baby_blue, "\nStarting the pledge server..."])
     GenServer.start_link(PledgeServer, %State{}, name: PledgeServer)
   end
