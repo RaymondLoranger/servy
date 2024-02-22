@@ -20,7 +20,7 @@ defmodule Servy.ServicesSupervisor do
           {:ok, {:supervisor.sup_flags(), [:supervisor.child_spec()]}} | :ignore
   def init(:ok) do
     [
-      {PledgeServer, [:ok, :and, :what, :not]},
+      {PledgeServer, :ok},
       # refresh lapse in minutes -- between 1 and 120
       {SensorServer, 3}
     ]
