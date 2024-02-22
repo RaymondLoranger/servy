@@ -33,8 +33,10 @@ defmodule Servy.PledgeServer do
 
   def handle_cast(:clear, state), do: {:noreply, put_in(state.pledges, [])}
 
-  def handle_cast({:set_cache_size, size}, state),
-    do: {:noreply, put_in(state.cache_size, size)}
+  def handle_cast({:set_cache_size, size}, state) do
+    resized_cache = Enum.take(state.pledges, size)
+    {:noreply, %State{state | cache_size: size, pledges: resized_cache}}
+  end
 
   def handle_call(:total_pledged, _from, state) do
     # total = Enum.map(state.pledges, &elem(&1, 1)) |> Enum.sum()
