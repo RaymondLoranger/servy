@@ -15,4 +15,3 @@
   ```elixir
   ["Bigfoot", "Yeti", "Sasquatch"] |> Enum.random()
   ```
-  
